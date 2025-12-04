@@ -67,12 +67,23 @@
         const Globe = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></Icon>;
         const Phone = (props) => <Icon {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></Icon>;
         const Mail = (props) => <Icon {...props}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></Icon>;
-        const MessageCircle = (props) => <Icon {...props}><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></Icon>;
         const Play = (props) => <Icon {...props}><polygon points="5 3 19 12 5 21 5 3"/></Icon>;
         const ArrowRight = (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>;
 
+        // --- BRAND LOGOS (Custom SVGs) ---
+        const WhatsAppLogo = ({ className, size = 24 }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+        );
 
-        // --- LOGO COMPONENT ---
+        const TelegramLogo = ({ className, size = 24 }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+                <path d="M21.6 2.6c-.3-.2-10 3.6-18.4 6.9-1.5.6-1.5 1.5-.3 1.9l4.7 1.5 1.8 5.6c.2.6.8.7 1.2.2l2.6-2.4 5.2 3.8c.8.5 1.5.2 1.7-.8l3.1-14.6c.3-1.2-.5-1.8-1.6-1.3z"/>
+            </svg>
+        );
+
+        // --- DIGI MABBLE LOGO ---
         const DigiMabbleLogo = ({ className = "h-10 w-auto" }) => (
             <img 
                 src="https://firebasestorage.googleapis.com/v0/b/sharptronics-6cvn2d.firebasestorage.app/o/digimabble%20logo.png?alt=media&token=fe898add-12ad-4852-a93f-21ae50a5cb80" 
@@ -108,7 +119,10 @@
                     "Receive instant booking confirmation."
                 ],
                 demoLink: "https://wa.me/15556394197?text=hello",
-                icon: <DigiMabbleLogo className="h-8 w-8" />
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "WhatsApp",
+                buttonIcon: <WhatsAppLogo size={24} className="text-white" />,
+                buttonText: "Experience Bot on WhatsApp"
             },
             {
                 id: 2,
@@ -134,7 +148,187 @@
                     "Confirm details to receive your digital appointment pass."
                 ],
                 demoLink: "https://wa.me/15556394197?text=hello",
-                icon: <DigiMabbleLogo className="h-8 w-8" />
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "WhatsApp",
+                buttonIcon: <WhatsAppLogo size={24} className="text-white" />,
+                buttonText: "Experience Bot on WhatsApp"
+            },
+            {
+                id: 3,
+                title: "Real Estate Appointment Scheduler Bot",
+                category: "Real Estate Automation",
+                shortDescription: "Streamline property viewings with an automated Telegram bot. Collect leads, showcase properties, and book visit slots in real-time backed by PostgreSQL.",
+                features: [
+                    "Collects user details (name, phone, email) through Telegram.",
+                    "Shows available properties fetched directly from PostgreSQL.",
+                    "Displays real-time available visit slots for instant booking.",
+                    "Session-based flow handled securely inside n8n.",
+                    "End-to-end automated appointment workflow."
+                ],
+                benefits: [
+                    "Removes manual scheduling effort for the real estate team.",
+                    "Fast and seamless booking experience for potential buyers.",
+                    "Ensures accurate slot availability with a centralized database.",
+                    "Handles unlimited users simultaneously."
+                ],
+                stepsToUse: [
+                    "User starts the Telegram bot.",
+                    "Bot collects user details and saves them to PostgreSQL.",
+                    "Bot fetches and displays the live property list.",
+                    "User selects a property and views available visit slots.",
+                    "User selects a slot to confirm the booking.",
+                    "Confirmation is sent and stored in the database."
+                ],
+                demoLink: "https://t.me/ai_appointment_scheduler_bot?start=hello",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "Telegram",
+                buttonIcon: <TelegramLogo size={24} className="text-white" />,
+                buttonText: "Experience Bot on Telegram"
+            },
+            {
+                id: 4,
+                title: "Real Estate Property Scraper & Alert System",
+                category: "Data Extraction & Automation",
+                shortDescription: "Never miss a property deal. Automatically scrape Immoweb hourly, detect new owner listings, and sync data to Airtable with instant email alerts.",
+                features: [
+                    "Scrapes Immoweb every 1 hour using Schedule Trigger.",
+                    "Detects only new property listings (duplicate-safe).",
+                    "Cleans and normalizes listing data with custom code.",
+                    "Stores all listings into Airtable automatically.",
+                    "Compares current scrape vs previous records.",
+                    "Sends email alerts when new owner listings appear.",
+                    "Uses Apify scraper for reliable Immoweb extraction."
+                ],
+                benefits: [
+                    "Admin instantly sees new owner listings.",
+                    "No need to manually check Immoweb.",
+                    "Clean and structured data stored for analysis.",
+                    "Prevents duplicate notifications.",
+                    "Fully automated and low maintenance.",
+                    "Easy to update search URL or number of pages in Airtable."
+                ],
+                stepsToUse: [
+                    "Schedule Trigger activates every 1 hour.",
+                    "Workflow loads search URL, pages, and email from Airtable.",
+                    "Calls Apify API to scrape Immoweb listings.",
+                    "Code node cleans, formats, and structures listing data.",
+                    "Workflow compares scraped data with existing Airtable records.",
+                    "Identifies only new listings based on unique URLs.",
+                    "Saves new listings into Airtable.",
+                    "Generates HTML email summarizing new listings.",
+                    "Sends email to admin."
+                ],
+                demoLink: "mailto:info@digimabble.com",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "Email",
+                buttonIcon: <Mail size={24} className="text-white" />,
+                buttonText: "Contact Us for Demo"
+            },
+            {
+                id: 5,
+                title: "AI Call Agent",
+                category: "Healthcare Voice AI",
+                shortDescription: "A 24/7 intelligent voice agent that handles patient calls, manages appointments via Cal.com, and syncs data to your CRM automatically.",
+                features: [
+                    "AI call agent handles patient calls automatically.",
+                    "Supports new requests, appointment rescheduling, and cancellations.",
+                    "Collects caller details step-by-step (name, email, phone).",
+                    "Stores data in PostgreSQL via n8n workflows.",
+                    "Creates CRM tickets automatically for every request.",
+                    "Integrates with Cal.com for real-time appointment booking.",
+                    "Works through Twilio phone number for seamless inbound calls."
+                ],
+                benefits: [
+                    "Reduces manual administrative workload for staff.",
+                    "Ensures every call is answered professionally immediately.",
+                    "Eliminates human errors in data collection.",
+                    "Centralized database for tracking all patient interactions.",
+                    "Faster appointment handling and improved patient response time.",
+                    "Scalable architecture—new flows or services can be added easily."
+                ],
+                stepsToUse: [
+                    "Caller phones the dedicated Twilio number.",
+                    "AI Agent greets and identifies intent (New Request, Appointment, Admin).",
+                    "Agent collects required details conversationally.",
+                    "Data is sent to n8n webhook for processing.",
+                    "Workflow creates CRM ticket & stores data in PostgreSQL.",
+                    "If appointment: Agent negotiates time and sends booking to Cal.com API.",
+                    "AI confirms completion and ends the call."
+                ],
+                demoLink: "tel:+3280089559",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "Phone",
+                buttonIcon: <Phone size={24} className="text-white" />,
+                buttonText: "Call AI Agent"
+            },
+            {
+                id: 6,
+                title: "AI Therapist Recommendation Chatbot",
+                category: "Healthcare AI Chatbot",
+                shortDescription: "A multilingual AI assistant that routes patients to the right therapist based on location and needs, fully integrated with your current data stack.",
+                features: [
+                    "AI‑powered therapist recommendation engine.",
+                    "Multilingual support (EN/FR/NL).",
+                    "Location-based filtering (e.g., Namur/Gembloux).",
+                    "Airtable-driven doctor & consultation data source.",
+                    "PostgreSQL chat history with session timeout handling.",
+                    "Structured availability lookup and safe fallback details.",
+                    "Clean integration with frontend React widget."
+                ],
+                benefits: [
+                    "Automated and accurate therapist routing.",
+                    "Zero manual updates (data pulled directly from Airtable).",
+                    "Better patient experience with personalized answers.",
+                    "Session continuity for returning users.",
+                    "Scalable and maintainable workflow via n8n.",
+                    "Analytics-ready conversation storage."
+                ],
+                stepsToUse: [
+                    "User message is sent from React widget to n8n Webhook.",
+                    "AI Agent reads conversation memory and Airtable data.",
+                    "Model generates a structured, context-aware response.",
+                    "PostgreSQL logs message history for analytics.",
+                    "n8n sends the response back to the frontend.",
+                    "Session auto-resets if user is inactive for 2 hours."
+                ],
+                demoLink: "https://animacorpus.be",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "Web",
+                buttonIcon: <Globe size={24} className="text-white" />,
+                buttonText: "Visit Live Website"
+            },
+            {
+                id: 7,
+                title: "AI Meeting Transcriptor",
+                category: "Business Productivity AI",
+                shortDescription: "Automatically record, transcribe, and summarize your Google Meet, Zoom, and Teams meetings. Never miss an action item again.",
+                features: [
+                    "Joins online meetings automatically via Calendar integration.",
+                    "Provides accurate real-time transcription with speaker identification.",
+                    "Generates concise AI summaries and extracts key action items.",
+                    "Supports multiple languages (EN, FR, NL, DE).",
+                    "Exports data directly to Notion, Slack, or your CRM.",
+                    "Secure storage with searchable meeting history."
+                ],
+                benefits: [
+                    "Eliminates the need for manual note-taking.",
+                    "Keeps the entire team aligned with automated recaps.",
+                    "Ensures accountability by tracking action items.",
+                    "Searchable database of all business conversations.",
+                    "Saves hours of administrative work per week."
+                ],
+                stepsToUse: [
+                    "Upload your meeting video or audio recording file.",
+                    "AI analyzes the content to generate a verbatim transcript.",
+                    "System extracts key discussion points and action items.",
+                    "Formatted summary and transcript are automatically emailed to attendees.",
+                    "Data is synced to your preferred workspace (Notion/Slack)."
+                ],
+                demoLink: "mailto:info@digimabble.com",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "Email",
+                buttonIcon: <Mail size={24} className="text-white" />,
+                buttonText: "Contact Us for Demo"
             }
         ];
 
@@ -272,12 +466,12 @@
 
                             <a 
                                 href={product.demoLink} 
-                                target="_blank" 
+                                target={product.demoLink.startsWith('mailto') ? "_self" : "_blank"}
                                 rel="noopener noreferrer"
                                 className="w-full bg-brand-navy hover:bg-[#2a3b75] text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-3 text-lg group"
                             >
-                                <MessageCircle size={24} className="fill-white" />
-                                Experience Bot on WhatsApp
+                                {product.buttonIcon}
+                                {product.buttonText}
                                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                             </a>
                         </div>
