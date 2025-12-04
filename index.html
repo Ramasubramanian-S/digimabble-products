@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digi Mabble - Product Innovation Showcase</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#1b2955',
+                            orange: '#faa31a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONS (Inline SVGs to remove external dependencies) ---
+        const Icon = ({ children, className, size = 24 }) => (
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width={size} 
+                height={size} 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className={className}
+            >
+                {children}
+            </svg>
+        );
+
+        const Menu = (props) => <Icon {...props}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></Icon>;
+        const X = (props) => <Icon {...props}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></Icon>;
+        const CheckCircle = (props) => <Icon {...props}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></Icon>;
+        const Globe = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></Icon>;
+        const Phone = (props) => <Icon {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></Icon>;
+        const Mail = (props) => <Icon {...props}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></Icon>;
+        const MessageCircle = (props) => <Icon {...props}><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></Icon>;
+        const Play = (props) => <Icon {...props}><polygon points="5 3 19 12 5 21 5 3"/></Icon>;
+        const ArrowRight = (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>;
+
+
+        // --- LOGO COMPONENT ---
+        const DigiMabbleLogo = ({ className = "h-10 w-auto" }) => (
+            <img 
+                src="https://firebasestorage.googleapis.com/v0/b/sharptronics-6cvn2d.firebasestorage.app/o/digimabble%20logo.png?alt=media&token=fe898add-12ad-4852-a93f-21ae50a5cb80" 
+                alt="Digi Mabble" 
+                className={className}
+            />
+        );
+
+        // --- PRODUCT DATA ---
+        const PRODUCTS_DATA = [
+            {
+                id: 1,
+                title: "Restaurant Reservation WhatsApp Bot",
+                category: "AI Automation",
+                shortDescription: "A fully automated booking assistant that lives in WhatsApp. Handle reservations 24/7 without human intervention.",
+                features: [
+                    "Seamless integration with existing reservation systems (POS/CRM).",
+                    "Real-time dynamic pricing and table availability checks.",
+                    "Full user control: Book new reservations, cancel existing ones, or modify details.",
+                    "Completely automated booking flow."
+                ],
+                benefits: [
+                    "Eliminates missed calls and lost booking opportunities.",
+                    "Reduces front-desk staff workload significantly.",
+                    "Provides instant confirmation to customers."
+                ],
+                stepsToUse: [
+                    "Start conversation by sending the pre-filled 'hello' message.",
+                    "Select your need: New Reservation, Cancel, or Modify.",
+                    "Enter contact details when prompted.",
+                    "System automatically checks real-time table availability.",
+                    "Complete checkout process.",
+                    "Receive instant booking confirmation."
+                ],
+                demoLink: "https://wa.me/15556394197?text=hello",
+                icon: <DigiMabbleLogo className="h-8 w-8" />
+            },
+            {
+                id: 2,
+                title: "Smart Clinic Appointment Assistant",
+                category: "Healthcare Automation",
+                shortDescription: "Transform patient access with an intelligent booking agent. Patients can triage needs and secure appointments instantly on WhatsApp.",
+                features: [
+                    "Specialty-based booking flow (Select Medical Need).",
+                    "Real-time doctor availability and slot management.",
+                    "Automated appointment reminders to reduce no-shows.",
+                    "Secure patient data handling and seamless EMR integration."
+                ],
+                benefits: [
+                    "24/7 Patient access to scheduling without phone wait times.",
+                    "Drastically reduces front-desk administrative load.",
+                    "Minimizes scheduling errors and double-bookings."
+                ],
+                stepsToUse: [
+                    "Initiate chat to access the Virtual Receptionist.",
+                    "Select 'New Appointment' from the menu.",
+                    "Choose your specific Medical Need (e.g., General, Dental).",
+                    "System instantly checks and displays available slots.",
+                    "Confirm details to receive your digital appointment pass."
+                ],
+                demoLink: "https://wa.me/15556394197?text=hello",
+                icon: <DigiMabbleLogo className="h-8 w-8" />
+            }
+        ];
+
+        // --- REACT COMPONENTS ---
+
+        const TopBar = () => {
+            return (
+                <div className="bg-brand-navy text-white py-2 px-6 text-sm hidden md:block">
+                    <div className="max-w-7xl mx-auto flex justify-between items-center">
+                        <div className="flex gap-6">
+                           <span className="font-bold text-white">Product Demo Portal</span>
+                        </div>
+                        <div className="flex gap-6">
+                           <span className="flex items-center gap-2">
+                             <span className="text-gray-400">Client Support:</span>
+                             <span className="font-bold hover:text-brand-orange cursor-pointer transition-colors">+32 467 85 99 60</span>
+                           </span>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const Header = () => {
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+            return (
+                <nav className="sticky top-0 w-full z-50 bg-white border-b border-gray-100 shadow-sm">
+                    <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                        {/* Logo */}
+                        <a href="#" className="flex items-center">
+                            <DigiMabbleLogo className="h-12 w-auto" />
+                        </a>
+
+                        {/* Desktop Nav */}
+                        <div className="hidden md:flex items-center gap-8 text-brand-navy font-bold text-sm uppercase tracking-wide">
+                            <a href="#" className="text-brand-navy hover:text-brand-orange transition-colors">Product Showcase</a>
+                            <button className="bg-brand-navy hover:bg-[#2a3b75] text-white font-bold px-6 py-3 rounded-full transition-all shadow-md text-xs">
+                                Contact Sales
+                            </button>
+                        </div>
+
+                        {/* Mobile Toggle */}
+                        <button className="md:hidden text-brand-navy" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                            {isMobileMenuOpen ? <X /> : <Menu />}
+                        </button>
+                    </div>
+
+                    {/* Mobile Menu */}
+                    {isMobileMenuOpen && (
+                        <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 p-6 flex flex-col gap-4 shadow-xl z-50">
+                            <a href="#" className="text-brand-navy py-2 font-bold uppercase">Product Showcase</a>
+                            <button className="bg-brand-navy text-white font-bold py-3 rounded-md w-full uppercase text-sm">
+                                Contact Sales
+                            </button>
+                        </div>
+                    )}
+                </nav>
+            );
+        };
+
+        const ProductDetail = ({ product }) => {
+            return (
+                <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden mb-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-12">
+                        
+                        {/* Left Column: Product Info */}
+                        <div className="lg:col-span-7 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-gray-100">
+                            
+                            {/* Header */}
+                            <div className="mb-6">
+                                <div>
+                                    <span className="text-brand-orange font-bold text-xs uppercase tracking-wider mb-1 block">
+                                        {product.category}
+                                    </span>
+                                    <h2 className="text-3xl font-extrabold text-brand-navy mb-2">
+                                        {product.title}
+                                    </h2>
+                                    <p className="text-slate-600 text-lg leading-relaxed">
+                                        {product.shortDescription}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="grid md:grid-cols-2 gap-8 mt-8">
+                                {/* Features List */}
+                                <div>
+                                    <h3 className="text-brand-navy font-bold text-sm uppercase tracking-wide mb-4 flex items-center gap-2">
+                                        <CheckCircle size={18} className="text-brand-orange" /> Key Features
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        {product.features.map((feature, idx) => (
+                                            <li key={idx} className="flex items-start gap-3 text-sm text-slate-600">
+                                                <CheckCircle size={16} className="text-brand-orange mt-0.5 shrink-0" />
+                                                <span className="leading-snug">{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {/* Benefits List */}
+                                <div>
+                                    <h3 className="text-brand-navy font-bold text-sm uppercase tracking-wide mb-4 flex items-center gap-2">
+                                        <CheckCircle size={18} className="text-brand-orange" /> Benefits
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        {product.benefits.map((benefit, idx) => (
+                                            <li key={idx} className="flex items-start gap-3 text-sm text-slate-600">
+                                                <span className="w-1.5 h-1.5 bg-brand-orange rounded-full mt-2 shrink-0" />
+                                                <span className="leading-snug">{benefit}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right Column: Interactive / Demo Area */}
+                        <div className="lg:col-span-5 bg-gray-50 p-8 lg:p-12 flex flex-col justify-center">
+                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-6">
+                                <h3 className="text-brand-navy font-bold mb-4 flex items-center gap-2">
+                                    <Play size={18} className="text-brand-orange" /> Steps to Experience
+                                </h3>
+                                <ol className="space-y-4">
+                                    {product.stepsToUse.map((step, idx) => (
+                                        <li key={idx} className="flex gap-3 text-sm text-slate-600">
+                                            <span className="font-bold text-brand-orange bg-[#faa31a]/10 w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs">
+                                                {idx + 1}
+                                            </span>
+                                            <span>{step}</span>
+                                        </li>
+                                    ))}
+                                </ol>
+                            </div>
+
+                            <a 
+                                href={product.demoLink} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="w-full bg-brand-navy hover:bg-[#2a3b75] text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center gap-3 text-lg group"
+                            >
+                                <MessageCircle size={24} className="fill-white" />
+                                Experience Bot on WhatsApp
+                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const ProductList = () => {
+            return (
+                <section className="bg-gray-50 min-h-screen py-16 px-6">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="mb-12">
+                            <h1 className="text-4xl font-extrabold text-brand-navy mb-4">Our Innovation Portfolio</h1>
+                            <p className="text-slate-500 text-lg max-w-2xl">
+                                Explore our latest AI-driven solutions designed to transform retail and service experiences.
+                            </p>
+                        </div>
+                        
+                        <div className="space-y-8">
+                            {PRODUCTS_DATA.map(product => (
+                                <ProductDetail key={product.id} product={product} />
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Footer = () => {
+            return (
+                <footer className="bg-brand-navy text-gray-400 py-12 px-6">
+                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+                        <div>
+                            <div className="mb-6">
+                                <DigiMabbleLogo className="h-10 w-auto brightness-0 invert" />
+                            </div>
+                            <p className="leading-relaxed mb-4 text-gray-300">
+                                Empowering businesses with intelligent, scalable automation.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-wider">Contact</h4>
+                            <ul className="space-y-2">
+                                <li className="flex gap-2 items-center text-gray-300">
+                                    <Phone size={14} className="text-brand-orange" />
+                                    +32 467 85 99 60
+                                </li>
+                                <li className="flex gap-2 items-center text-gray-300">
+                                    <Mail size={14} className="text-brand-orange" />
+                                    info@digimabble.com
+                                </li>
+                                <li className="flex gap-2 items-start text-gray-300">
+                                    <Globe size={14} className="text-brand-orange mt-0.5" />
+                                    <span>Avenue Eiffel 8, 1300 Wavre, Belgium</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="md:text-right">
+                            <p className="text-gray-300">&copy; 2025 Digi Mabble Solutions.</p>
+                            <div className="flex gap-4 mt-2 justify-start md:justify-end">
+                                <a href="#" className="hover:text-brand-orange transition-colors text-gray-400">Privacy</a>
+                                <a href="#" className="hover:text-brand-orange transition-colors text-gray-400">Terms</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        const App = () => {
+            return (
+                <div className="font-sans antialiased text-slate-900 bg-white">
+                    <TopBar />
+                    <Header />
+                    <ProductList />
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
