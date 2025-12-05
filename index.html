@@ -15,11 +15,21 @@
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
     
     <script>
@@ -81,7 +91,7 @@
 
         const TelegramLogo = ({ className, size = 24 }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-                 <path d="M21.6 2.6c-.3-.2-10 3.6-18.4 6.9-1.5.6-1.5 1.5-.3 1.9l4.7 1.5 1.8 5.6c.2.6.8.7 1.2.2l2.6-2.4 5.2 3.8c.8.5 1.5.2 1.7-.8l3.1-14.6c.3-1.2-.5-1.8-1.6-1.3z"/>
+                 <path d="M2.38 10.3c3.78-1.646 9.08-3.92 11.23-4.814.61-.254 2.88-1.2 3.32-1.2.06 0 .2.014.29.043.08.026.17.065.24.135.07.07.09.15.1.23.01.09.06 1.45.02 2.814l-.53 8.35c-.06 1.05-.33 1.95-1.04 1.98-.6.02-1.02-.4-1.58-.77l-4.41-3.26c-.45-.31-1.03-.7-1.66-1.12.84-.79 1.97-1.85 2.5-2.39.08-.08.16-.23.07-.35-.09-.13-.26-.08-.37-.05-1.58.5-4.44 1.43-6.2 2.02-.45.15-.86.23-1.22.22-.53-.01-1.55-.3-2.31-.55-.93-.31-1.67-.47-1.6-.99.03-.27.42-.55 1.15-.82z"/>
             </svg>
         );
 
@@ -600,6 +610,57 @@
         };
 
         const ProductList = () => {
+            const [activeCategory, setActiveCategory] = useState(PRODUCT_GROUPS[0].title);
+
+            // Helper function to create safe IDs for scrolling
+            const slugify = (text) => {
+                return text
+                    .toString()
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')     // Replace spaces with -
+                    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+                    .replace(/\-\-+/g, '-')   // Replace multiple - with single -
+                    .replace(/^-+/, '')       // Trim - from start of text
+                    .replace(/-+$/, '');      // Trim - from end of text
+            };
+
+            const scrollToSection = (title) => {
+                const id = slugify(title);
+                const element = document.getElementById(id);
+                if (element) {
+                    setActiveCategory(title);
+                    // Offset for the sticky header
+                    const headerOffset = 180; // Increased offset to account for nav bar
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            };
+
+            // Scroll listener to update active tab automatically
+            useEffect(() => {
+                const handleScroll = () => {
+                    const scrollPosition = window.scrollY + 200; // Offset for detection
+
+                    PRODUCT_GROUPS.forEach((group) => {
+                        const element = document.getElementById(slugify(group.title));
+                        if (element) {
+                            const { offsetTop, offsetHeight } = element;
+                            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                                setActiveCategory(group.title);
+                            }
+                        }
+                    });
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
             return (
                 <section className="bg-gray-50 min-h-screen py-16 px-6">
                     <div className="max-w-6xl mx-auto">
@@ -609,16 +670,43 @@
                                 Explore our latest AI-driven solutions designed to transform retail and service experiences.
                             </p>
                         </div>
+
+                        {/* Professional Category Navigation */}
+                        <div className="sticky top-20 z-40 bg-gray-50/95 backdrop-blur-sm border-b border-gray-200 mb-16 -mx-6 px-6 md:mx-0 md:px-0 pt-4">
+                            <div className="flex overflow-x-auto no-scrollbar gap-8">
+                                {PRODUCT_GROUPS.map((group, idx) => {
+                                    const isActive = activeCategory === group.title;
+                                    return (
+                                        <button 
+                                            key={idx}
+                                            onClick={() => scrollToSection(group.title)}
+                                            className={`pb-4 text-sm font-bold tracking-wide whitespace-nowrap transition-all duration-300 relative ${
+                                                isActive 
+                                                    ? 'text-brand-navy' 
+                                                    : 'text-gray-400 hover:text-brand-navy'
+                                            }`}
+                                        >
+                                            {group.title}
+                                            {/* Animated Underline */}
+                                            <span className={`absolute bottom-0 left-0 w-full h-1 bg-brand-orange transform transition-transform duration-300 ease-out origin-left ${
+                                                isActive ? 'scale-x-100' : 'scale-x-0'
+                                            }`} />
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
                         
                         {PRODUCT_GROUPS.map((group, groupIdx) => {
                             const groupProducts = PRODUCTS_DATA.filter(p => group.productIds.includes(p.id));
                             if (groupProducts.length === 0) return null;
 
                             return (
-                                <div key={groupIdx} className="mb-20">
-                                    <div className="mb-10 pl-4 border-l-4 border-brand-orange">
-                                        <h2 className="text-3xl font-bold text-brand-navy mb-2">{group.title}</h2>
-                                        <p className="text-slate-600 text-lg">{group.description}</p>
+                                <div key={groupIdx} id={slugify(group.title)} className="mb-24 scroll-mt-32">
+                                    <div className="mb-10 flex items-end gap-4">
+                                        <h2 className="text-3xl font-extrabold text-brand-navy">{group.title}</h2>
+                                        <div className="h-px bg-gray-200 flex-grow mb-2"></div>
+                                        <p className="text-slate-400 text-sm hidden md:block mb-1 font-medium">{group.description}</p>
                                     </div>
                                     <div className="space-y-12">
                                         {groupProducts.map(product => (
