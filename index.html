@@ -69,6 +69,8 @@
         const Mail = (props) => <Icon {...props}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></Icon>;
         const Play = (props) => <Icon {...props}><polygon points="5 3 19 12 5 21 5 3"/></Icon>;
         const ArrowRight = (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>;
+        const Share2 = (props) => <Icon {...props}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></Icon>;
+        const Linkedin = (props) => <Icon {...props}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></Icon>;
 
         // --- BRAND LOGOS (Custom SVGs) ---
         const WhatsAppLogo = ({ className, size = 24 }) => (
@@ -79,7 +81,7 @@
 
         const TelegramLogo = ({ className, size = 24 }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-                 <path d="M2.38 10.3c3.78-1.646 9.08-3.92 11.23-4.814.61-.254 2.88-1.2 3.32-1.2.06 0 .2.014.29.043.08.026.17.065.24.135.07.07.09.15.1.23.01.09.06 1.45.02 2.814l-.53 8.35c-.06 1.05-.33 1.95-1.04 1.98-.6.02-1.02-.4-1.58-.77l-4.41-3.26c-.45-.31-1.03-.7-1.66-1.12.84-.79 1.97-1.85 2.5-2.39.08-.08.16-.23.07-.35-.09-.13-.26-.08-.37-.05-1.58.5-4.44 1.43-6.2 2.02-.45.15-.86.23-1.22.22-.53-.01-1.55-.3-2.31-.55-.93-.31-1.67-.47-1.6-.99.03-.27.42-.55 1.15-.82z"/>
+                 <path d="M21.6 2.6c-.3-.2-10 3.6-18.4 6.9-1.5.6-1.5 1.5-.3 1.9l4.7 1.5 1.8 5.6c.2.6.8.7 1.2.2l2.6-2.4 5.2 3.8c.8.5 1.5.2 1.7-.8l3.1-14.6c.3-1.2-.5-1.8-1.6-1.3z"/>
             </svg>
         );
 
@@ -96,7 +98,7 @@
         const PRODUCTS_DATA = [
             {
                 id: 1,
-                title: "Restaurant Reservation WhatsApp Bot",
+                title: "AI Restaurant Reservation WhatsApp Assistant",
                 category: "AI Automation",
                 shortDescription: "A fully automated booking assistant that lives in WhatsApp. Handle reservations 24/7 without human intervention.",
                 features: [
@@ -126,7 +128,7 @@
             },
             {
                 id: 2,
-                title: "Smart Clinic Appointment Assistant",
+                title: "AI Healthcare Appointment Assistant",
                 category: "Healthcare Automation",
                 shortDescription: "Transform patient access with an intelligent booking agent. Patients can triage needs and secure appointments instantly on WhatsApp.",
                 features: [
@@ -155,9 +157,9 @@
             },
             {
                 id: 3,
-                title: "Real Estate Appointment Scheduler Bot",
+                title: "AI Real Estate Appointment Scheduler",
                 category: "Real Estate Automation",
-                shortDescription: "Streamline property viewings with an automated Telegram bot. Collect leads, showcase properties, and book visit slots in real-time backed by PostgreSQL.",
+                shortDescription: "Streamline property viewings with an automated Telegram assistant. Collect leads, showcase properties, and book visit slots in real-time backed by PostgreSQL.",
                 features: [
                     "Collects user details (name, phone, email) through Telegram.",
                     "Shows available properties fetched directly from PostgreSQL.",
@@ -187,7 +189,7 @@
             },
             {
                 id: 4,
-                title: "Real Estate Property Scraper & Alert System",
+                title: "AI Real Estate Property Alert System",
                 category: "Data Extraction & Automation",
                 shortDescription: "Never miss a property deal. Automatically scrape Immoweb hourly, detect new owner listings, and sync data to Airtable with instant email alerts.",
                 features: [
@@ -226,11 +228,11 @@
             },
             {
                 id: 5,
-                title: "AI Call Agent",
+                title: "AI Voice Agent",
                 category: "Healthcare Voice AI",
                 shortDescription: "A 24/7 intelligent voice agent that handles patient calls, manages appointments via Cal.com, and syncs data to your CRM automatically.",
                 features: [
-                    "AI call agent handles patient calls automatically.",
+                    "AI voice agent handles patient calls automatically.",
                     "Supports new requests, appointment rescheduling, and cancellations.",
                     "Collects caller details step-by-step (name, email, phone).",
                     "Stores data in PostgreSQL via n8n workflows.",
@@ -263,8 +265,8 @@
             },
             {
                 id: 6,
-                title: "AI Therapist Recommendation Chatbot",
-                category: "Healthcare AI Chatbot",
+                title: "AI Therapist Recommendation Assistant",
+                category: "Healthcare AI Assistant",
                 shortDescription: "A multilingual AI assistant that routes patients to the right therapist based on location and needs, fully integrated with your current data stack.",
                 features: [
                     "AI‑powered therapist recommendation engine.",
@@ -299,12 +301,12 @@
             },
             {
                 id: 7,
-                title: "AI Meeting Transcriptor",
+                title: "AI Meeting Report Generator",
                 category: "Business Productivity AI",
-                shortDescription: "Automatically record, transcribe, and summarize your Google Meet, Zoom, and Teams meetings. Never miss an action item again.",
+                shortDescription: "Automatically analyze recordings, transcribe audio, and summarize your Google Meet, Zoom, and Teams meetings. Never miss an action item again.",
                 features: [
-                    "Joins online meetings automatically via Calendar integration.",
-                    "Provides accurate real-time transcription with speaker identification.",
+                    "Processes meeting recordings via upload or integration.",
+                    "Provides accurate transcription with speaker identification.",
                     "Generates concise AI summaries and extracts key action items.",
                     "Supports multiple languages (EN, FR, NL, DE).",
                     "Exports data directly to Notion, Slack, or your CRM.",
@@ -329,6 +331,123 @@
                 platform: "Email",
                 buttonIcon: <Mail size={24} className="text-white" />,
                 buttonText: "Contact Us for Demo"
+            },
+            {
+                id: 8,
+                title: "AI Email Management System",
+                category: "Business Automation",
+                shortDescription: "Reclaim your inbox with an AI agent that automatically categorizes emails, drafts smart responses, and syncs critical data to your CRM.",
+                features: [
+                    "Auto-categorizes incoming emails (Support, Sales, Spam).",
+                    "Drafts context-aware responses for approval.",
+                    "Extracts key data points and updates CRM records.",
+                    "Prioritizes urgent messages for immediate attention.",
+                    "Filters out noise and newsletters automatically."
+                ],
+                benefits: [
+                    "Drastically reduces time spent on email triage.",
+                    "Ensures faster response times for critical inquiries.",
+                    "Maintains a clean and organized inbox (Inbox Zero).",
+                    "Automates routine administrative communication tasks."
+                ],
+                stepsToUse: [
+                    "Connect your email provider (Gmail/Outlook).",
+                    "AI scans and labels incoming messages based on intent.",
+                    "System drafts replies for common queries.",
+                    "Critical information is extracted and sent to your database.",
+                    "You review and hit send, or let AI auto-send for specific categories."
+                ],
+                demoLink: "mailto:info@digimabble.com",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "Email",
+                buttonIcon: <Mail size={24} className="text-white" />,
+                buttonText: "Contact Us for Demo"
+            },
+            {
+                id: 9,
+                title: "AI Social Media Agent",
+                category: "Marketing Automation",
+                shortDescription: "Your 24/7 social media manager. Automate content creation, scheduling, and community engagement across all your platforms.",
+                features: [
+                    "Generates on-brand content ideas and captions.",
+                    "Auto-schedules posts for optimal engagement times.",
+                    "Monitors comments and drafts engagement replies.",
+                    "Analyzes performance metrics to refine strategy.",
+                    "Supports LinkedIn, Twitter/X, Instagram, and Facebook."
+                ],
+                benefits: [
+                    "Maintains a consistent and active social presence.",
+                    "Saves hours of content creation and scheduling work.",
+                    "Increases audience engagement with timely responses.",
+                    "Provides data-driven insights for growth."
+                ],
+                stepsToUse: [
+                    "Connect your social media accounts.",
+                    "Define your brand voice and content pillars.",
+                    "AI generates a content calendar with text and image suggestions.",
+                    "Approve posts for auto-scheduling.",
+                    "System monitors interactions and alerts you to engagement opportunities."
+                ],
+                demoLink: "mailto:info@digimabble.com",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "Social Media",
+                buttonIcon: <Share2 size={24} className="text-white" />,
+                buttonText: "Contact Us for Demo"
+            },
+            {
+                id: 10,
+                title: "AI LinkedIn Lead Generation Agent",
+                category: "Sales Automation",
+                shortDescription: "Supercharge your B2B sales. Automate prospect finding, connection requests, and personalized outreach sequences on LinkedIn.",
+                features: [
+                    "Identifies target prospects based on your ideal customer profile.",
+                    "Sends personalized connection requests automatically.",
+                    "Manages follow-up message sequences (Drip Campaigns).",
+                    "Syncs lead data and conversation history to your CRM.",
+                    "Detects positive responses to pause automation."
+                ],
+                benefits: [
+                    "Generates a steady stream of qualified B2B leads.",
+                    "Scales your outreach without adding manual work.",
+                    "Increases conversion rates with personalized messaging.",
+                    "Keeps your sales pipeline full and organized."
+                ],
+                stepsToUse: [
+                    "Define your target audience criteria (Role, Industry, Location).",
+                    "Set up your message sequence and personalization fields.",
+                    "AI Agent visits profiles and sends connection requests.",
+                    "System sends scheduled follow-ups to new connections.",
+                    "When a prospect replies, the lead is flagged for your attention."
+                ],
+                demoLink: "mailto:info@digimabble.com",
+                icon: <DigiMabbleLogo className="h-8 w-8" />,
+                platform: "LinkedIn",
+                buttonIcon: <Linkedin size={24} className="text-white" />,
+                buttonText: "Contact Us for Demo"
+            }
+        ];
+
+        // --- SECTION GROUPING LOGIC ---
+        const PRODUCT_GROUPS = [
+            {
+                title: "Healthcare AI",
+                description: "Intelligent solutions for clinics, therapists, and patient management.",
+                productIds: [2, 5, 6]
+            },
+            {
+                title: "Real Estate AI",
+                description: "Automated tools for property alerts, scheduling, and lead management.",
+                productIds: [3, 4]
+            },
+            {
+                title: "Social Media & Sales Bots",
+                description: "Boost engagement and sales with AI agents for WhatsApp, LinkedIn, and Social Media.",
+                productIds: [1, 9, 10]
+            },
+            {
+                title: "Business Productivity",
+                description: "Streamline operations with AI for meetings and email management.",
+                productIds: [7, 8]
             }
         ];
 
@@ -491,11 +610,24 @@
                             </p>
                         </div>
                         
-                        <div className="space-y-8">
-                            {PRODUCTS_DATA.map(product => (
-                                <ProductDetail key={product.id} product={product} />
-                            ))}
-                        </div>
+                        {PRODUCT_GROUPS.map((group, groupIdx) => {
+                            const groupProducts = PRODUCTS_DATA.filter(p => group.productIds.includes(p.id));
+                            if (groupProducts.length === 0) return null;
+
+                            return (
+                                <div key={groupIdx} className="mb-20">
+                                    <div className="mb-10 pl-4 border-l-4 border-brand-orange">
+                                        <h2 className="text-3xl font-bold text-brand-navy mb-2">{group.title}</h2>
+                                        <p className="text-slate-600 text-lg">{group.description}</p>
+                                    </div>
+                                    <div className="space-y-12">
+                                        {groupProducts.map(product => (
+                                            <ProductDetail key={product.id} product={product} />
+                                        ))}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </section>
             );
